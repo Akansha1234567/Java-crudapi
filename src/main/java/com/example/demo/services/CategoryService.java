@@ -1,7 +1,10 @@
 package com.example.demo.services;
 
+import com.example.demo.controller.ApiControllersCategory;
 import com.example.demo.exception.IdNotFoundException;
 import com.example.demo.models.Category;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +13,8 @@ import java.util.List;
 public class CategoryService implements CategoryInter {
     @Autowired
     public com.example.demo.repo.CategoryRepo CategoryRepo;
+
+    Logger log = LoggerFactory.getLogger(CategoryService.class);
 
     @Override
     public List<Category> getCategory() {
@@ -23,7 +28,7 @@ public class CategoryService implements CategoryInter {
         Category category =null;
 
         if(CategoryRepo.findById(id).isEmpty()){
-
+            log.error("id doesnt exist");
             throw new IdNotFoundException();
         }
         else{
